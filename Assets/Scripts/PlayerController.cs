@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
         var direction = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
-            direction += Vector3.up;
+            direction += Vector3.forward;
             if (
                 !(Input.GetKey(KeyCode.S)
                 || Input.GetKey(KeyCode.A)
@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S))
         {
-            direction += Vector3.down;
+            direction += Vector3.back;
             if (
                 !(Input.GetKey(KeyCode.W)
                 || Input.GetKey(KeyCode.A)
