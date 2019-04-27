@@ -3,18 +3,29 @@
 public class PlayerController : MonoBehaviour
 {
     public float speed;
-    public bool isWalking;
+    public float runSpeed;
+
+    public KeyCode upButton;
+    public KeyCode rightButton;
+    public KeyCode downButton;
+    public KeyCode leftButton;
+    public KeyCode runButton;
+
+    internal bool isWalking;
+    internal bool isRunning;
 
     internal Directions facingDirection;          // used to determine which animation to play
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
     void Update()
+    {
+    }
+
+    void FixedUpdate()
     {
         HandleInput();
     }
@@ -31,51 +42,59 @@ public class PlayerController : MonoBehaviour
     }
 
     private void HandleMovement()
-    {        
-        var direction = Vector3.zero;
-        if (Input.GetKey(KeyCode.W))
+    {
+        if (Input.GetKey(runButton))
         {
-            direction += Vector3.up;
+            isRunning = true;
+        }
+        else
+        {
+            isRunning = false;
+        }
+        var direction = Vector3.zero;
+        if (Input.GetKey(upButton))
+        {
+            direction += Vector3.forward;
             if (
-                !(Input.GetKey(KeyCode.S)
-                || Input.GetKey(KeyCode.A)
-                || Input.GetKey(KeyCode.D))
+                !(Input.GetKey(downButton)
+                || Input.GetKey(leftButton)
+                || Input.GetKey(rightButton))
              )
             {
                 facingDirection = Directions.Up;
             }
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(rightButton))
         {
             direction += Vector3.right;
             if (
-                !(Input.GetKey(KeyCode.W)
-                || Input.GetKey(KeyCode.A)
-                || Input.GetKey(KeyCode.S))
+                !(Input.GetKey(upButton)
+                || Input.GetKey(leftButton)
+                || Input.GetKey(downButton))
              )
             {
                 facingDirection = Directions.Right;
             }
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(downButton))
         {
-            direction += Vector3.down;
+            direction += Vector3.back;
             if (
-                !(Input.GetKey(KeyCode.W)
-                || Input.GetKey(KeyCode.A)
-                || Input.GetKey(KeyCode.D))
+                !(Input.GetKey(upButton)
+                || Input.GetKey(leftButton)
+                || Input.GetKey(rightButton))
              )
             {
                 facingDirection = Directions.Down;
             }
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(leftButton))
         {
             direction += Vector3.left;
             if (
-                !(Input.GetKey(KeyCode.W)
-                || Input.GetKey(KeyCode.S)
-                || Input.GetKey(KeyCode.D))
+                !(Input.GetKey(upButton)
+                || Input.GetKey(downButton)
+                || Input.GetKey(rightButton))
              )
             {
                 facingDirection = Directions.Left;
@@ -83,7 +102,7 @@ public class PlayerController : MonoBehaviour
         }
 
         isWalking = direction.magnitude > 0;
-        transform.Translate(direction * speed * Time.deltaTime);
+        gameObject.GetComponent<Rigidbody>().AddRelativeForce(direction * (isRunning ? runSpeed : speed), ForceMode.Impulse);
     }
 
 }
