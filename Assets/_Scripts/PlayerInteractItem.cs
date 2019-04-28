@@ -44,7 +44,9 @@ public class PlayerInteractItem : MonoBehaviour {
                 if (hitObject.layer == pickupLayerMask) {
 
                     heldObject = hitObject;
-                    hitObject.transform.SetParent(heldLocation.transform);
+                    heldObject.transform.position = heldLocation.transform.position;
+                    heldObject.transform.SetParent(heldLocation.transform);
+
                     
                     // TODO
                     // set LayerMask to Ignore
