@@ -12,6 +12,7 @@ public class Human : ScriptableObject {
     //Statistics
     // move speed without modifiers
     public float baseMoveSpeed;
+    
 
     public float stumbleProbability;  // When stuble timer is up while human moves, determine if stumbles
 
