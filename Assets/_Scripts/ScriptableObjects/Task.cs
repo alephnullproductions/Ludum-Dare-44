@@ -14,7 +14,7 @@ public class Task : ScriptableObject {
 
     public float timeLimit;
 
-    
+
     // Type of Action Required
     public enum TaskType {
         Delivery, 
@@ -22,7 +22,10 @@ public class Task : ScriptableObject {
         PutOutFire
     };
 
-    
+    public void CompleteTask() {
+        isCompleted = true;
+    }
+
     public void SetupTask(TaskType ttype) {
         if (ttype == TaskType.Delivery) {
             // Setup Delivery Requirements
