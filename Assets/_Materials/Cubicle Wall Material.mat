@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Cubicle Wall Material
-  m_Shader: {fileID: -6465566751694194690, guid: cf15d8f69f0791f4e83ea49b17974fda,
+  m_Shader: {fileID: -6465566751694194690, guid: 2c0c1a064ff69eb489ce20aaaf2d3ea6,
     type: 3}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4
@@ -20,6 +20,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_96DFEBC8:
+        m_Texture: {fileID: 2800000, guid: 58dbb7e315c12ee4292aa0b115f6ea3f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 20, y: 20}
@@ -60,7 +64,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _Metallic: 0
-    - _Normal_Strength: 0.6
+    - _Normal_Strength: 0.2
     - _OcclusionStrength: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
