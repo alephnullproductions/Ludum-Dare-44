@@ -78,3 +78,5 @@ Assembly-UnityScript-firstpass-vs.unityproj
 Assembly-UnityScript-firstpass.pidb
 Assembly-UnityScript-firstpass.unityproj
 *.suo
+
+*.unity
