@@ -54,6 +54,7 @@ public class Task
     public string desc;
     public int timeLimit;
     public SubTask[] subTasks;
+    public int currentSubtask;
 
     public Task(TaskSO theTask)
     {
@@ -67,6 +68,20 @@ public class Task
         {
             subTasks[i] = new SubTask(theTask.subTasks[i]);
         }
+        currentSubtask = 0;
+    }
+
+    public void CompleteSubtask()
+    {
+        if(currentSubtask < subTasks.Length)
+        {
+            currentSubtask++;
+        }
+    }
+
+    public SubTask GetCurrentSubTask()
+    {
+        return subTasks[currentSubtask];
     }
 }
 
@@ -75,13 +90,14 @@ public class SubTask
     public Transform target;
     public GameObject mustBeDelivered;
     public float timeToComplete;
-
+    public string desc;
 
     public SubTask(SubTaskSO theSubTask)
     {
         mustBeDelivered = theSubTask.mustBeDelivered;
         timeToComplete = theSubTask.timeToComplete;
         target = getGameObjectFromString(theSubTask.target);
+        desc = theSubTask.description;
     }
 
     private Transform getGameObjectFromString(string target)

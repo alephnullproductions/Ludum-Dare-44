@@ -11,11 +11,16 @@ public class PlayerInteractItem : MonoBehaviour {
     public bool isItemHeld = false;
     public GameObject heldLocation;
     public GameObject heldObject;
-
-    
+ 
     private int pickupLayerMask;
     private int interactLayerMask;
-    
+
+    [SerializeField]
+    Canvas FtoPickupCanvas;
+    [SerializeField]
+    Canvas FtoInteractCanvas;
+    [SerializeField]
+    TaskManager taskManager;
     
     // Determine if we can see object with RayCast
     
@@ -34,13 +39,31 @@ public class PlayerInteractItem : MonoBehaviour {
 
 //        if (Input.GetButtonDown())) {}
         if (Physics.Raycast(camRay, out hit, rayRange)) {
-            
+
+            var hitObject = hit.collider.gameObject;
+            if (hitObject.layer == pickupLayerMask)
+            {
+                FtoPickupCanvas.gameObject.SetActive(true);
+            }
+            else
+            {
+                FtoPickupCanvas.gameObject.SetActive(false);
+            }
+            if (hitObject.layer == interactLayerMask && taskManager.IsThisATarget(hitObject))
+            {
+                FtoInteractCanvas.gameObject.SetActive(true);
+            }
+            else
+            {
+                FtoInteractCanvas.gameObject.SetActive(false);
+            }
+
             // Q - Toggle Carry
-            if (Input.GetKey(KeyCode.Q)) {
+            if (Input.GetKey(KeyCode.F)) {
                 //checking raycast
 
                 // for convenience
-                var hitObject = hit.collider.gameObject;
+                
                 if (hitObject.layer == pickupLayerMask) {
 
                     heldObject = hitObject;
@@ -69,9 +92,7 @@ public class PlayerInteractItem : MonoBehaviour {
             
             // E - Interact
             if (Input.GetKey(KeyCode.E)) {
-                var hitObject = hit.collider.gameObject;
-
-
+                
                 if (isItemHeld && hitObject.layer == interactLayerMask) {
                     // Determine if both objects interact
                         // If yes, destroy object, perform activity

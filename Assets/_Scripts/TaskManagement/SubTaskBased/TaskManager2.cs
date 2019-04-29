@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GameEvents;
 using UnityEngine;
 
-public class TaskManager : MonoBehaviour {
+public class TaskManager2 : MonoBehaviour {
 
     public List<IndividualTask> tasks;
     // queue created from this list of Tasks

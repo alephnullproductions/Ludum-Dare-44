@@ -8,7 +8,6 @@ public class TaskManager : MonoBehaviour
     public List<Task> tasks = new List<Task>();
     public TextMeshProUGUI[] taskLables;
     private bool isLoaded = false;
-    [SerializeField]
     private TaskProcessor taskProcessor;
 
     public int numberOfStartingTasks = 1;
@@ -61,11 +60,32 @@ public class TaskManager : MonoBehaviour
     {
         for (int i = 0; i < tasks.Count; i++)
         {
-            taskLables[i].text = tasks[i].taskName;
+            taskLables[i].text = tasks[i].GetCurrentSubTask().desc;
         }
     }
 
- 
+
+    public Task[] GetTasks()
+    {
+        return tasks.ToArray();
+    }
+
+    public bool IsThisATarget(GameObject gameobjectToTest)
+    {
+
+        
+        foreach(Task t in tasks)
+        {
+            
+            if (t.GetCurrentSubTask().target.Equals(gameobjectToTest.transform))
+            {
+                Debug.Log("Found " + t.GetCurrentSubTask().target.gameObject.name);
+                return true;
+            }
+        }
+        Debug.Log("Did not find " + gameobjectToTest.name);
+        return false;
+    }
 }
 
 
