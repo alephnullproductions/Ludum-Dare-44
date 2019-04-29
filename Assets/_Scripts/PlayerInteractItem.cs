@@ -96,7 +96,7 @@ public class PlayerInteractItem : MonoBehaviour {
                         else shouldDrop = false;
                         taskManager.CompleteSubTask(currentSubtask);
                     }
-                    shouldDrop = true;
+                    
                 }
                 else if (hitObject.layer == pickupLayerMask && Input.GetKeyDown(KeyCode.F))
                 {
