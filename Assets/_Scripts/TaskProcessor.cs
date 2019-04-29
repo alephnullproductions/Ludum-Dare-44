@@ -44,6 +44,32 @@ public class TaskProcessor : MonoBehaviour
             possibleTasks[i] = new Task(possibleTasksSO[i]);
         }
     }
+
+    public Task[] GetTasksFromSitatuionSO(SituationSO situation)
+    {
+        Debug.Log("getting tasks from situation " + situation.SituationName + situation.newTasks.Length);
+        Task[] newTasks = new Task[situation.newTasks.Length];
+        Debug.Log(newTasks.Length);
+        bool found = false;
+        for (int i = 0; i < situation.newTasks.Length; i++)
+        {
+            found = false;
+            for(int j = 0; j < possibleTasks.Length; j++)
+            {
+                if (situation.newTasks[i].taskName.Equals(possibleTasks[j]))
+                {
+                    Debug.Log(possibleTasks[j].taskName);
+                    newTasks[i] = possibleTasks[j];
+                    found = true;
+                }
+            }
+            if (!found)
+            {
+                newTasks[i] = new Task(situation.newTasks[i]);
+            }
+        }
+        return newTasks;
+    }
 }
 
 public class Task

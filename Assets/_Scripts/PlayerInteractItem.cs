@@ -24,6 +24,8 @@ public class PlayerInteractItem : MonoBehaviour {
     TaskManager taskManager;
     [SerializeField]
     Slider taskCompletionSlider;
+    [SerializeField]
+    Canvas situationCanvas;
     
     // Determine if we can see object with RayCast
     
@@ -42,7 +44,7 @@ public class PlayerInteractItem : MonoBehaviour {
         FtoInteractCanvas.gameObject.SetActive(false);
         FtoPickupCanvas.gameObject.SetActive(false);
 
-        SubTask currentSubtask;
+        SubTask currentSubtask = null;
         if(heldObject != null && (currentSubtask = taskManager.GetSubTaskFromTarget(heldObject)) != null)
         {
 
@@ -50,7 +52,7 @@ public class PlayerInteractItem : MonoBehaviour {
         }
 
         //        if (Input.GetButtonDown())) {}
-        if (Physics.Raycast(camRay, out hit, rayRange)) {
+        if (!situationCanvas.isActiveAndEnabled && Physics.Raycast(camRay, out hit, rayRange)) {
             
             var hitObject = hit.collider.gameObject;
 
@@ -58,7 +60,10 @@ public class PlayerInteractItem : MonoBehaviour {
             {
                 FtoPickupCanvas.gameObject.SetActive(true);
             }
-            currentSubtask = taskManager.GetSubTaskFromTarget(hitObject);
+            if (hitObject != null)
+            {
+                currentSubtask = taskManager.GetSubTaskFromTarget(hitObject);
+            }
 
             if(hitObject.layer == interactLayerMask && currentSubtask != null)
             {

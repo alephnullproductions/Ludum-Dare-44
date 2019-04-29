@@ -44,6 +44,15 @@ public class TaskManager : MonoBehaviour
         tasks.Add(task);
     }
 
+    public void AddTasksFromSituation(SituationSO situation)
+    {
+        Debug.Log("Adding tasks from " + situation.SituationName);
+        Task[] newTasks = taskProcessor.GetTasksFromSitatuionSO(situation);
+        Debug.Log("Total Tasks " + newTasks.Length);
+        tasks.AddRange(taskProcessor.GetTasksFromSitatuionSO(situation));
+        UpdateUI();
+    }
+
     private bool isDuplicate(Task task)
     {
         foreach(Task t in tasks) {
@@ -58,13 +67,13 @@ public class TaskManager : MonoBehaviour
         int f = 0;
         for (int i = 0; i < tasks.Count; i++)
         {
-            if( tasks[i].GetCurrentSubTask() != null)
+            if(tasks[i] != null && tasks[i].GetCurrentSubTask() != null)
             {
                 taskLables[f].text = tasks[i].GetCurrentSubTask().desc;
                 f++;
             }
         }
-        while(f < tasks.Count)
+        while(f < tasks.Count && f < taskLables.Length)
         {
             taskLables[f].text = "";
             f++;
@@ -94,23 +103,26 @@ public class TaskManager : MonoBehaviour
         return false;
     }
 
-    public Task GetTaskForSubtask()
+    /*public Task GetTaskForSubtask(SubTask subtask)
     {
         foreach (Task t in tasks)
         {
 
         }
         return null;
-    }
+    }*/
 
     public SubTask GetSubTaskFromTarget(GameObject gameobjectToTest)
     {
-
-        
+        Debug.Log("Testing " + gameobjectToTest);
+        if(gameobjectToTest == null)
+        {
+            return null;
+        }
         foreach(Task t in tasks)
         {
-            
-            if (t.GetCurrentSubTask() != null && t.GetCurrentSubTask().target.Equals(gameobjectToTest.transform))
+            Debug.Log("Against " + t.taskName); 
+            if (gameobjectToTest != null && t.GetCurrentSubTask() != null && t.GetCurrentSubTask().target.Equals(gameobjectToTest.transform))
             {
                 return t.GetCurrentSubTask();
             }
