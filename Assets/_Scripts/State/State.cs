@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State : MonoBehaviour {
-    public abstract void Tick();
+public abstract class State {
+    public abstract int Tick(int wait);
 
     public virtual void OnStateEnter() {}
     public virtual void OnStateExit() {}
