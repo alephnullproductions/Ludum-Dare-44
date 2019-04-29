@@ -26,10 +26,13 @@ public class PlayerInteractItem : MonoBehaviour {
     Slider taskCompletionSlider;
     [SerializeField]
     Canvas situationCanvas;
-    
+    [SerializeField]
+    Canvas startCanvas;
+
+
     // Determine if we can see object with RayCast
-    
-    
+
+
     // Start is called before the first frame update
     void Start() {
         pickupLayerMask = LayerMask.NameToLayer("Pickup");
