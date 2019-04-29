@@ -47,6 +47,7 @@ public class SituationManager : MonoBehaviour
 
     void PerformSituation(SituationSO situation)
     {
+        Time.timeScale = 0;
         situationCanvas.gameObject.SetActive(true);
         situationTitleText.text = situation.SituationName;
         situationDesc.text = situation.SituationDescription;

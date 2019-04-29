@@ -81,6 +81,8 @@ public class Task
     public int timeLimit;
     public SubTask[] subTasks;
     public int currentSubtask;
+    public float timeSpent;
+    public float timeSinceRecieved = 0f;
 
     public Task(TaskSO theTask)
     {
@@ -95,6 +97,7 @@ public class Task
             subTasks[i] = new SubTask(theTask.subTasks[i]);
         }
         currentSubtask = 0;
+        timeSpent = 0;
     }
 
     public void CompleteSubtask()
@@ -115,6 +118,18 @@ public class Task
     public SubTask GetCurrentSubTask()
     {
         return isComplete? null : subTasks[currentSubtask];
+    }
+
+    public bool isFailed()
+    {
+        float timeLeft = (timeLimit - timeSinceRecieved);
+        if ((timeLeft) <= 0)
+        {
+            Debug.Log(taskName + " Has failed");
+            return true;
+        }
+        Debug.Log(taskName + " Has not failed");
+        return false;
     }
 }
 

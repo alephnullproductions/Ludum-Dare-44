@@ -37,6 +37,7 @@ public class TaskManager : MonoBehaviour
             UpdateUI();
             isLoaded = true;
         }
+        UpdateUI();
     }
 
     public void AddTask(Task task)
@@ -69,7 +70,24 @@ public class TaskManager : MonoBehaviour
         {
             if(tasks[i] != null && tasks[i].GetCurrentSubTask() != null)
             {
-                taskLables[f].text = tasks[i].GetCurrentSubTask().desc;
+                if(!tasks[i].isFailed())
+                {
+                    tasks[i].timeSinceRecieved += Time.deltaTime;
+                    taskLables[f].color = Color.black;
+                }
+                else
+                {
+                    tasks[i].timeSinceRecieved = tasks[i].timeLimit;
+                    taskLables[f].color = Color.red;
+                }
+                if (tasks[i].isFailed())
+                {
+                    taskLables[f].text = tasks[i].GetCurrentSubTask().desc + " FAILED";
+                }
+                else
+                {
+                    taskLables[f].text = tasks[i].GetCurrentSubTask().desc + " " + Mathf.Ceil(tasks[i].timeLimit - tasks[i].timeSinceRecieved);
+                }
                 f++;
             }
         }
@@ -121,7 +139,7 @@ public class TaskManager : MonoBehaviour
         foreach(Task t in tasks)
         {
 
-            if (gameobjectToTest != null && t.GetCurrentSubTask() != null && t.GetCurrentSubTask().target.Equals(gameobjectToTest.transform))
+            if (!t.isFailed() && gameobjectToTest != null && t.GetCurrentSubTask() != null && t.GetCurrentSubTask().target.Equals(gameobjectToTest.transform))
             {
                 Debug.Log("Found " + t.taskName);
                 return t.GetCurrentSubTask();

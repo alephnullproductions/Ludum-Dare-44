@@ -30,6 +30,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         [SerializeField] Canvas situationCanvas;
         [SerializeField] Canvas startCanvas;
 
+
         private Camera m_Camera;
         private bool m_Jump;
         private float m_YRotation;
