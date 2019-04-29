@@ -13,13 +13,20 @@ public class PatrolState : State {
         this.index = index;
     }
 
-    public override void Tick() {
+    // int is the wait period of a Coroutine...
+    public override int Tick(int waitTime) {
         character.MoveToward(curDestination);
+        
+        Debug.Log(curDestination);
 
-        if (ReachedDestination()) {
-            index = (index + 1) % destinations.Count;
-            character.SetState(new PatrolState(character, curDestination, destinations, index));
-        }
+        if (!ReachedDestination()) return 1;
+        index = (index + 1) % destinations.Count;
+
+        curDestination = destinations[index];
+
+        return waitTime;
+//        yield return new WaitForSeconds(5);
+//        character.SetState(new PatrolState(character, curDestination, destinations, index));
     }
 
     // This distance will depend, for Zones it should be < 0.5f

@@ -8,7 +8,7 @@ public class ChaseState : State
 
     
     
-    public override void Tick() {
-        
+    public override int Tick(int wait) {
+        return 0;
     }
 }
