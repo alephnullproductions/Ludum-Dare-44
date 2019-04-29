@@ -26,7 +26,7 @@ public class TaskManager : MonoBehaviour
                 numberOfStartingTasks = taskProcessor.GetTasks().Length;
             }
 
-            Debug.Log(numberOfStartingTasks);
+
 
             for (int i = 0; i < numberOfStartingTasks; i++ ) {
                 Task task;
@@ -79,7 +79,7 @@ public class TaskManager : MonoBehaviour
             
             if (t.GetCurrentSubTask().target.Equals(gameobjectToTest.transform))
             {
-                Debug.Log("Found " + t.GetCurrentSubTask().target.gameObject.name);
+
                 return true;
             }
         }

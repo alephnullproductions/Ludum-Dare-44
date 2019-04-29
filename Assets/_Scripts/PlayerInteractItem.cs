@@ -36,35 +36,40 @@ public class PlayerInteractItem : MonoBehaviour {
         
         RaycastHit hit;
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        FtoInteractCanvas.gameObject.SetActive(false);
+        FtoPickupCanvas.gameObject.SetActive(false);
 
-//        if (Input.GetButtonDown())) {}
+        //        if (Input.GetButtonDown())) {}
         if (Physics.Raycast(camRay, out hit, rayRange)) {
-
+            
             var hitObject = hit.collider.gameObject;
+
             if (hitObject.layer == pickupLayerMask)
             {
                 FtoPickupCanvas.gameObject.SetActive(true);
-            }
-            else
-            {
-                FtoPickupCanvas.gameObject.SetActive(false);
             }
             if (hitObject.layer == interactLayerMask && taskManager.IsThisATarget(hitObject))
             {
                 FtoInteractCanvas.gameObject.SetActive(true);
             }
-            else
-            {
-                FtoInteractCanvas.gameObject.SetActive(false);
-            }
+
 
             // Q - Toggle Carry
             if (Input.GetKey(KeyCode.F)) {
                 //checking raycast
 
                 // for convenience
-                
-                if (hitObject.layer == pickupLayerMask) {
+                if (isItemHeld && hitObject.layer == interactLayerMask)
+                {
+                    // Determine if both objects interact
+                    // If yes, destroy object, perform activity
+
+                    Destroy(heldObject);
+                    isItemHeld = false;
+                    Debug.Log("Perform Action between:");
+
+                }
+                else if (hitObject.layer == pickupLayerMask) {
 
                     heldObject = hitObject;
                     heldObject.transform.position = heldLocation.transform.position;
@@ -91,20 +96,9 @@ public class PlayerInteractItem : MonoBehaviour {
             }
             
             // E - Interact
-            if (Input.GetKey(KeyCode.E)) {
+            if (Input.GetKey(KeyCode.F)) {
                 
-                if (isItemHeld && hitObject.layer == interactLayerMask) {
-                    // Determine if both objects interact
-                        // If yes, destroy object, perform activity
-                        
-                        Destroy(heldObject);
-                        isItemHeld = false;
-                        Debug.Log("Perform Action between:");
-
-                }
-                else if (hitObject.layer == interactLayerMask) {
-                    
-                }
+             
                 
                 
             }
