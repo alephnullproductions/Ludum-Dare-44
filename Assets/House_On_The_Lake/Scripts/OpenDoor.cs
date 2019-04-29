@@ -48,12 +48,21 @@ public class OpenDoor : MonoBehaviour {
 		if (col.tag == "Player") {
 			enter = true;
 			}
+        else if(col.tag == "Vampire")
+        {
+            open = true;
+        }
 		}
 
     void OnTriggerExit(Collider col)
 {
 	if (col.tag == "Player") {
 		enter = false;
-	}
-}
+        }
+        else if (col.tag == "Vampire")
+        {
+            open = false;
+
+         }
+    }
 }
