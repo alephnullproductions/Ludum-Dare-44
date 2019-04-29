@@ -47,9 +47,9 @@ public class TaskProcessor : MonoBehaviour
 
     public Task[] GetTasksFromSitatuionSO(SituationSO situation)
     {
-        Debug.Log("getting tasks from situation " + situation.SituationName + situation.newTasks.Length);
+        
         Task[] newTasks = new Task[situation.newTasks.Length];
-        Debug.Log(newTasks.Length);
+
         bool found = false;
         for (int i = 0; i < situation.newTasks.Length; i++)
         {

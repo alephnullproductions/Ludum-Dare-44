@@ -114,16 +114,16 @@ public class TaskManager : MonoBehaviour
 
     public SubTask GetSubTaskFromTarget(GameObject gameobjectToTest)
     {
-        Debug.Log("Testing " + gameobjectToTest);
         if(gameobjectToTest == null)
         {
             return null;
         }
         foreach(Task t in tasks)
         {
-            Debug.Log("Against " + t.taskName); 
+
             if (gameobjectToTest != null && t.GetCurrentSubTask() != null && t.GetCurrentSubTask().target.Equals(gameobjectToTest.transform))
             {
+                Debug.Log("Found " + t.taskName);
                 return t.GetCurrentSubTask();
             }
         }
