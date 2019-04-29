@@ -52,7 +52,8 @@ public class PlayerInteractItem : MonoBehaviour {
                     // set LayerMask to Ignore
 //                        hitObject.layer 
                     hitObject.layer = LayerMask.NameToLayer("Ignore Raycast");     // it works
-                    hitObject.transform.localScale.Set(0.5f,0.5f,0.5f);
+//                    hitObject.transform.localScale.Set(0.5f,0.5f,0.5f);
+
                     // turn off collision
                     // shrink object
                     
