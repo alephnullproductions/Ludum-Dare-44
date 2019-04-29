@@ -14,12 +14,21 @@ public class OpenDoor : MonoBehaviour {
 	private Vector3 openRot;
 	private bool open;
 	private bool enter;
+    [SerializeField]
+    public GameObject door;
+
+    
+
+    
 
 	// Use this for initialization
 	void Start () {
 		
 			defaultRot = transform.eulerAngles;
 			openRot = new Vector3 (defaultRot.x, defaultRot.y + DoorOpenAngle, defaultRot.z);
+            Transform foo = transform;
+            
+        
 		}
 	
 	// Update is called once per frame
@@ -29,13 +38,13 @@ public class OpenDoor : MonoBehaviour {
 				gameObject.GetComponent<AudioSource> ().PlayOneShot (OpenAudio);
 				AudioS = true;
 			}
-			transform.eulerAngles = Vector3.Slerp (transform.eulerAngles, openRot, Time.deltaTime * smooth);
+            door.transform.eulerAngles = Vector3.Slerp (door.transform.eulerAngles, openRot, Time.deltaTime * smooth);
 		} else {
 			if (AudioS == true) {
 				gameObject.GetComponent<AudioSource> ().PlayOneShot (CloseAudio);
 				AudioS = false;
 			}
-			transform.eulerAngles = Vector3.Slerp (transform.eulerAngles, defaultRot, Time.deltaTime * smooth);
+            door.transform.eulerAngles = Vector3.Slerp (door.transform.eulerAngles, defaultRot, Time.deltaTime * smooth);
 
 		}
 		if (Input.GetKeyDown (KeyCode.F) && enter) {

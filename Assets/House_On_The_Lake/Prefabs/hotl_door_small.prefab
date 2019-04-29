@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 33760902637220708}
   - component: {fileID: 23168933635534032}
   - component: {fileID: 95778782865236180}
-  - component: {fileID: 2013844501}
   - component: {fileID: 2013844500}
   - component: {fileID: 8776930673086390018}
   m_Layer: 0
@@ -30,10 +29,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1147004098542286}
   m_LocalRotation: {x: 0.00000008146034, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6, y: -1.633, z: 0}
+  m_LocalPosition: {x: 0.703, y: -1.633, z: 0}
   m_LocalScale: {x: 1.2572, y: 1.2572, z: 0.9144244}
   m_Children: []
-  m_Father: {fileID: 4967148017236866}
+  m_Father: {fileID: 5773162020641477936}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &33760902637220708
@@ -101,22 +100,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!208 &2013844501
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1147004098542286}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.55600005, y: 1.415, z: 0.62}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.2030001, z: -0.79}
-  m_TimeToStationary: 0.5
 --- !u!114 &2013844500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,6 +1105,7 @@ GameObject:
   - component: {fileID: 114485420669015940}
   - component: {fileID: 65428352139472732}
   - component: {fileID: 82922608824619718}
+  - component: {fileID: 3572012542588674413}
   m_Layer: 0
   m_Name: hotl_door_small
   m_TagString: Untagged
@@ -1140,7 +1124,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4707132856676490}
+  - {fileID: 5773162020641477936}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1160,6 +1144,7 @@ MonoBehaviour:
   DoorOpenAngle: 90
   OpenAudio: {fileID: 8300000, guid: d4d3c93177db22741a95dcadd02aac99, type: 3}
   CloseAudio: {fileID: 8300000, guid: cec5cd9245cb4084fa7cd70becb0ea3f, type: 3}
+  door: {fileID: 6268560796196593775}
 --- !u!65 &65428352139472732
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1269,3 +1254,50 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!208 &3572012542588674413
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1235627772615684}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 0.78, y: 1, z: 0.78}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 0
+  m_Center: {x: -0.42, y: 0, z: -0.76}
+  m_TimeToStationary: 0.5
+--- !u!1 &6268560796196593775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5773162020641477936}
+  m_Layer: 0
+  m_Name: Door Pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5773162020641477936
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6268560796196593775}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.103, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4707132856676490}
+  m_Father: {fileID: 4967148017236866}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
