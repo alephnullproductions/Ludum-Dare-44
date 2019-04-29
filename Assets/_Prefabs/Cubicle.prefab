@@ -1549,6 +1549,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: TLP
       objectReference: {fileID: 0}
+    - target: {fileID: 4284009351996641439, guid: 20cb7ed50bd04b2409f898e68b8b60b4,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 948150753495671436, guid: 20cb7ed50bd04b2409f898e68b8b60b4,
         type: 3}
       propertyPath: m_LocalPosition.x

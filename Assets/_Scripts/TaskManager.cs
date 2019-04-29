@@ -111,8 +111,9 @@ public class TaskManager : MonoBehaviour
         {
             if(t.GetCurrentSubTask() == sub)
             {
-
+                
                 t.CompleteSubtask();
+                t.timeLimit += (int)Mathf.Ceil( t.subTasks[t.currentSubtask].timeToComplete);
                 UpdateUI();
                 return true;
             }
