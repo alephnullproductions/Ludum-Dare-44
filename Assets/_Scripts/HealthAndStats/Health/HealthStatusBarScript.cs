@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class HealthStatusBarScript : MonoBehaviour {
 
     public float health = 100;
     public int healthSegments = 10;
-    public float hpSegmentSize;
-    public float startingHealthWidth;
+    
+    private float hpSegmentSize;
+    private float startingHealthWidth;
 
-    public AudioClip takedamageSound;
+//    public AudioClip takedamageSound;
     
     
     public Texture backgroundTexture;
@@ -54,24 +56,42 @@ public class HealthStatusBarScript : MonoBehaviour {
 
 
     void ReduceHp() {
-        health -= health/healthSegments * Time.deltaTime;
-        healthWidth -= startingHealthWidth / healthSegments * Time.deltaTime;
-//        AudioClip.
+        health -= 2 * (health/healthSegments * Time.deltaTime);
+        healthWidth -= 2 * (startingHealthWidth / healthSegments * Time.deltaTime);
+        
+        
     }
+    
+    void MajorReduceHp() {
+        health -= 5 * (health/healthSegments * Time.deltaTime);
+        healthWidth -= 5 * (startingHealthWidth / healthSegments * Time.deltaTime);
+        
+    }
+    
 
     private void OnCollisionStay(Collision other) {
         if (other.transform.CompareTag("Vampire")) {
+            MajorReduceHp();    // Reduce Health
+            // Trigger Sound Effect taking Damage
+            Debug.Log("Reduce Hp");
+        }
+//        print(other.transform.tag);
+    }
+
+
+    private void OnTriggerStay(Collider other) {
+        if (other.transform.CompareTag("Vampire")) {
             ReduceHp();    // Reduce Health
             // Trigger Sound Effect taking Damage
-            
+            Debug.Log("Reduce Hp");
         }
     }
 
-    private void OnCollisionExit(Collision other) {
-        if (other.transform.CompareTag("Vampire")) {
-            
-        }
-    }
+//    private void OnCollisionExit(Collision other) {
+//        if (other.transform.CompareTag("Vampire")) {
+//            
+//        }
+//    }
 
     void TriggerGameOverScreen() {
         

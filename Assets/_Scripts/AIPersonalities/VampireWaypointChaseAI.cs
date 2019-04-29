@@ -91,7 +91,7 @@ public class VampireWaypointChaseAI : MonoBehaviour {
             dist2Player = Vector3.Distance(transform.position,
                 player.transform.position);
 
-            if (dist2Player <= 3) {
+            if (dist2Player <= patrolDistCheck) {
                 nav.SetDestination (player.transform.position);
                 // Perform animation
                 // 
