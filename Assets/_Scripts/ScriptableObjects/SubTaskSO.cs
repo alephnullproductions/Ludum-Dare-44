@@ -10,6 +10,7 @@ public class SubTaskSO : ScriptableObject {
     public string target;
     public GameObject mustBeDelivered;
     public float timeToComplete;
+    public bool isConsumed = false;
 
 
     // Type of Action Required

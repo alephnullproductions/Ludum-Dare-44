@@ -25,9 +25,6 @@ public class TaskManager : MonoBehaviour
             {
                 numberOfStartingTasks = taskProcessor.GetTasks().Length;
             }
-
-
-
             for (int i = 0; i < numberOfStartingTasks; i++ ) {
                 Task task;
                 do
@@ -58,9 +55,19 @@ public class TaskManager : MonoBehaviour
 
     public void UpdateUI()
     {
+        int f = 0;
         for (int i = 0; i < tasks.Count; i++)
         {
-            taskLables[i].text = tasks[i].GetCurrentSubTask().desc;
+            if( tasks[i].GetCurrentSubTask() != null)
+            {
+                taskLables[f].text = tasks[i].GetCurrentSubTask().desc;
+                f++;
+            }
+        }
+        while(f < tasks.Count)
+        {
+            taskLables[f].text = "";
+            f++;
         }
     }
 
@@ -70,21 +77,45 @@ public class TaskManager : MonoBehaviour
         return tasks.ToArray();
     }
 
-    public bool IsThisATarget(GameObject gameobjectToTest)
+    public bool CompleteSubTask(SubTask sub)
+    {
+
+        foreach(Task t in tasks)
+        {
+            if(t.GetCurrentSubTask() == sub)
+            {
+
+                t.CompleteSubtask();
+                UpdateUI();
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Task GetTaskForSubtask()
+    {
+        foreach (Task t in tasks)
+        {
+
+        }
+        return null;
+    }
+
+    public SubTask GetSubTaskFromTarget(GameObject gameobjectToTest)
     {
 
         
         foreach(Task t in tasks)
         {
             
-            if (t.GetCurrentSubTask().target.Equals(gameobjectToTest.transform))
+            if (t.GetCurrentSubTask() != null && t.GetCurrentSubTask().target.Equals(gameobjectToTest.transform))
             {
-
-                return true;
+                return t.GetCurrentSubTask();
             }
         }
-        Debug.Log("Did not find " + gameobjectToTest.name);
-        return false;
+        return null;
     }
 }
 

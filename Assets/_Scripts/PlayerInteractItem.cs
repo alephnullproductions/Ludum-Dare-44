@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInteractItem : MonoBehaviour {
     public float rayRange = 100f;
@@ -21,6 +22,8 @@ public class PlayerInteractItem : MonoBehaviour {
     Canvas FtoInteractCanvas;
     [SerializeField]
     TaskManager taskManager;
+    [SerializeField]
+    Slider taskCompletionSlider;
     
     // Determine if we can see object with RayCast
     
@@ -39,6 +42,13 @@ public class PlayerInteractItem : MonoBehaviour {
         FtoInteractCanvas.gameObject.SetActive(false);
         FtoPickupCanvas.gameObject.SetActive(false);
 
+        SubTask currentSubtask;
+        if(heldObject != null && (currentSubtask = taskManager.GetSubTaskFromTarget(heldObject)) != null)
+        {
+
+            taskManager.CompleteSubTask(currentSubtask);
+        }
+
         //        if (Input.GetButtonDown())) {}
         if (Physics.Raycast(camRay, out hit, rayRange)) {
             
@@ -48,25 +58,40 @@ public class PlayerInteractItem : MonoBehaviour {
             {
                 FtoPickupCanvas.gameObject.SetActive(true);
             }
-            if (hitObject.layer == interactLayerMask && taskManager.IsThisATarget(hitObject))
+            currentSubtask = taskManager.GetSubTaskFromTarget(hitObject);
+
+            if(hitObject.layer == interactLayerMask && currentSubtask != null)
             {
                 FtoInteractCanvas.gameObject.SetActive(true);
+                taskCompletionSlider.value = currentSubtask.timeSpent == 0? currentSubtask.timeSpent : currentSubtask.timeSpent / currentSubtask.timeToComplete * 100;
             }
-
-
             // Q - Toggle Carry
             if (Input.GetKey(KeyCode.F)) {
                 //checking raycast
 
                 // for convenience
-                if (isItemHeld && hitObject.layer == interactLayerMask)
+                if (hitObject.layer == interactLayerMask)
                 {
                     // Determine if both objects interact
                     // If yes, destroy object, perform activity
 
-                    Destroy(heldObject);
-                    isItemHeld = false;
-                    Debug.Log("Perform Action between:");
+                    if (currentSubtask != null && (currentSubtask.timeToComplete > currentSubtask.timeSpent && (currentSubtask.timeSpent != 0 || Input.GetKeyDown(KeyCode.F))))
+                    {
+                        currentSubtask.timeSpent += Time.deltaTime;
+                        
+                    } else if(currentSubtask != null && currentSubtask.timeSpent >= currentSubtask.timeToComplete)
+                    {
+                        if (currentSubtask.isConsumed)
+                        {
+                            Destroy(heldObject);
+                        }
+                        taskManager.CompleteSubTask(currentSubtask);
+                    }
+
+
+                    //Destroy(heldObject);
+                    //isItemHeld = false;
+                    //Debug.Log("Perform Action between:");
 
                 }
                 else if (hitObject.layer == pickupLayerMask) {
@@ -74,7 +99,8 @@ public class PlayerInteractItem : MonoBehaviour {
                     heldObject = hitObject;
                     heldObject.transform.position = heldLocation.transform.position;
                     heldObject.transform.SetParent(heldLocation.transform);
-
+                    heldObject.GetComponent<Rigidbody>().isKinematic = true;
+                    
                     
                     // TODO
                     // set LayerMask to Ignore
@@ -86,7 +112,7 @@ public class PlayerInteractItem : MonoBehaviour {
                     // shrink object
                     
                     isItemHeld = true;
-                    Debug.Log(hit.transform.name);
+
                 }
 
 //                held = hit.transform.GetComponent<Interactable>();

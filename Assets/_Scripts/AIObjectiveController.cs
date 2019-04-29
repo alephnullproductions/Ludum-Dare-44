@@ -34,6 +34,7 @@ public class AIObjectiveController : MonoBehaviour {
     private void Awake() {
         Zones = new Queue<GameObject>(zlist);
         nav = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player");
 
         targetZone = Zones.Dequeue();
         atZone = false;

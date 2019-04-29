@@ -73,15 +73,22 @@ public class Task
 
     public void CompleteSubtask()
     {
-        if(currentSubtask < subTasks.Length)
+
+        if(currentSubtask < subTasks.Length - 1)
         {
+
             currentSubtask++;
+        }
+        else
+        {
+
+            isComplete = true;
         }
     }
 
     public SubTask GetCurrentSubTask()
     {
-        return subTasks[currentSubtask];
+        return isComplete? null : subTasks[currentSubtask];
     }
 }
 
@@ -91,6 +98,8 @@ public class SubTask
     public GameObject mustBeDelivered;
     public float timeToComplete;
     public string desc;
+    public float timeSpent = 0;
+    public bool isConsumed = false;
 
     public SubTask(SubTaskSO theSubTask)
     {
@@ -98,11 +107,12 @@ public class SubTask
         timeToComplete = theSubTask.timeToComplete;
         target = getGameObjectFromString(theSubTask.target);
         desc = theSubTask.description;
+        isConsumed = theSubTask.isConsumed;
     }
 
     private Transform getGameObjectFromString(string target)
     {
-        for(int i = 0; i < TaskProcessor.getInstance().targets.Length; i++)
+        for (int i = 0; i < TaskProcessor.getInstance().targets.Length; i++)
         {
             if (TaskProcessor.getInstance().targetNames[i].Equals(target))
             {
@@ -112,5 +122,4 @@ public class SubTask
 
         return null;
     }
-
 }
