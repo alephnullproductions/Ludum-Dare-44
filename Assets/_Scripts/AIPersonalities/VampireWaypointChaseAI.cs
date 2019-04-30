@@ -82,10 +82,11 @@ public class VampireWaypointChaseAI : MonoBehaviour {
         // Reset
         var tick = ReduceTick();
         if (tick < 1) {
-            
+            Debug.Log("Tick under 1 reseting");
             ResetTick(patrolTime + chaseTime);
             return;
         } else if (tick < chaseTime) { // Chase Mode, aka Feed Mode
+            Debug.Log("Tick under chase chasing");
             state = VampState.Chase;
             nav.SetDestination (player.transform.position);
             dist2Player = Vector3.Distance(transform.position,
@@ -106,8 +107,9 @@ public class VampireWaypointChaseAI : MonoBehaviour {
         }
         // Patrol
         else {
+            Debug.Log("Tick above chase time, patroling " + targetZone.name);
             // if tick > waitGoal
-            targetLocation= targetZone.transform.position;
+            targetLocation = targetZone.transform.position;
             state = VampState.Patrol;
             dist = Vector3.Distance(transform.position,
                 targetZone.transform.position);

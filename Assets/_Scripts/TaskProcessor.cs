@@ -125,10 +125,8 @@ public class Task
         float timeLeft = (timeLimit - timeSinceRecieved);
         if ((timeLeft) <= 0)
         {
-            Debug.Log(taskName + " Has failed");
             return true;
         }
-        Debug.Log(taskName + " Has not failed");
         return false;
     }
 }

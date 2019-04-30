@@ -7,6 +7,7 @@ public class HealthStatusBarScript : MonoBehaviour {
 
     public float health = 100;
     public int healthSegments = 10;
+    public float startinghealth;
     
     private float hpSegmentSize;
     private float startingHealthWidth;
@@ -21,7 +22,7 @@ public class HealthStatusBarScript : MonoBehaviour {
     public float healthWidth = 199;
     public int healthHeight = 30;
 
-    public int healthMarginLeft = 41;
+    public int healthMarginLeft = 0;
     public int healthMarginTop = 38;
 
     public int frameWidth = 10;
@@ -29,6 +30,9 @@ public class HealthStatusBarScript : MonoBehaviour {
 
     public int frameMarginLeft = 10;
     public int frameMarginTop = 10;
+
+    
+
 
     private void OnGUI() {
         GUI.DrawTexture( 
@@ -42,7 +46,7 @@ public class HealthStatusBarScript : MonoBehaviour {
         GUI.DrawTexture(
             new Rect(healthMarginLeft,
                 healthMarginTop,
-                healthWidth + healthMarginLeft, 
+                healthWidth, 
                 healthHeight), 
             foregroundTexture, ScaleMode.ScaleAndCrop, true, 0 );
     
@@ -56,16 +60,16 @@ public class HealthStatusBarScript : MonoBehaviour {
 
 
     void ReduceHp() {
-        health -= 2 * (health/healthSegments * Time.deltaTime);
-        healthWidth -= 2 * (startingHealthWidth / healthSegments * Time.deltaTime);
-        
-        
+        health -= 2 * (startinghealth/healthSegments * Time.deltaTime);
+        healthWidth = health / startinghealth * startingHealthWidth;
+
+
     }
     
     void MajorReduceHp() {
-        health -= 5 * (health/healthSegments * Time.deltaTime);
-        healthWidth -= 5 * (startingHealthWidth / healthSegments * Time.deltaTime);
-        
+        health -= 5 * (startinghealth / healthSegments * Time.deltaTime);
+        healthWidth = health / startinghealth * startingHealthWidth;
+
     }
     
 
@@ -98,6 +102,7 @@ public class HealthStatusBarScript : MonoBehaviour {
     }
 
     void Awake() {
+        startinghealth = health;
         hpSegmentSize = healthWidth / healthSegments;
         startingHealthWidth = healthWidth;
     }
